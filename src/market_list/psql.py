@@ -68,7 +68,7 @@ if __name__ == '__main__':
     credentials = {
         'database': "lista_compra",
         'user': "postgres",
-        'password': '15jrd305',
+        'password': 'pass',
         'host': "localhost",
         'port': "5432"
     }

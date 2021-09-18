@@ -1,59 +1,47 @@
 # market_list
-This is project to generate the market list based on a kitchen recipes list.
 
+This is project to generate the market list based on a kitchen recipes list.
 
 Example:
 
 We have already in our database the following recipes list:
 
-   1.  Pollo chimichurri
-   2.  Lentejas guisadas con verduras
-   3.  Ternera stroganoff
-   4.  Verduras y pavo al vapor
-   5.  Arroz con atún
-   6.  Salmón y arroz bastami
-   7.  Crema espinaca con nuez
-   8.  Pisto
-   9.  Pesto
-  10.  Tinga de pollo
-  11.  Salsa boloñesa
-  12.  Arroz cremoso de pollo y verduras
+1. Pollo chimichurri
+2. Lentejas guisadas con verduras
+3. Ternera stroganoff
+4. Verduras y pavo al vapor
+5. Arroz con atún
+6. Salmón y arroz bastami
+7. Crema espinaca con nuez
+8. Pisto
+9. Pesto
+10. Tinga de pollo
+11. Salsa boloñesa
+12. Arroz cremoso de pollo y verduras
 
-Choosing recipes (1, 5, 6), if we want to go to the market now, 
-we need the list of ingredients and how much of each one need to 
-buy. Then, for this purpose you use our package as bellow, and you 
-can know the ingredients and the quantities to buy.
-
+Choosing recipes (1, 5, 6), if we want to go to the market now, we need the list of ingredients and how much of each one
+need to buy. Then, for this purpose you use our package as bellow, and you can know the ingredients and the quantities
+to buy.
 
 Python code
-```python
-import pandas as pd
-from tabulate import tabulate
-from market_list.psql import Query
 
-pd.set_option('display.width', 320)
-pd.set_option('display.max_columns', 30)
+```python
+from market_list.engine import MarketList
+from tabulate import tabulate
+
 credentials = {
-        'database': "lista_compra",
-        'user': "postgres",
-        'password': 'pass',
-        'host': "localhost",
-        'port': "5432"
+    'database': "lista_compra",
+    'user': "postgres",
+    'password': 'pass',
+    'host': "localhost",
+    'port': "5432"
 }
-query_str = """select t1.name as ingredients, t1.units, sum(t1.size) as size
-                   from ingredientes as t1
-                   inner join recetas as t2
-                   on t1.receta_id = t2.id
-                   where t2.id in (1, 5, 6)
-                         and t1.name not in ('agua')
-                   group by t1.name, t1.units
-                   order by size desc"""
-res = Query(**credentials).run(txt=query_str)
-df = pd.DataFrame(res['data'], columns=res['description'])
-print(tabulate(df, headers='keys', tablefmt='psql'))
+df = MarketList(**credentials).create(recipes=[1, 5, 6])
+print(tabulate(df, headers='keys', tablefmt='psql', showindex="never"))
 ```
 
 Results:
+
 ```
 +----+----------------------------------+----------+--------+
 |    | ingredients                      | units    |   size |

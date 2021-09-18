@@ -39,12 +39,10 @@ class MarketList:
 if __name__ == '__main__':
     from tabulate import tabulate
 
-    pd.set_option('display.width', 320)
-    pd.set_option('display.max_columns', 30)
     credentials = {
         'database': "lista_compra",
         'user': "postgres",
-        'password': '15jrd305',
+        'password': 'pass',
         'host': "localhost",
         'port': "5432"
     }
