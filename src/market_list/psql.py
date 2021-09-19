@@ -68,11 +68,11 @@ if __name__ == '__main__':
     credentials = {
         'database': "lista_compra",
         'user': "postgres",
-        'password': '15jrd305',
+        'password': 'pass',
         'host': "localhost",
         'port': "5432"
     }
-    
+
     # RECETAS CON INGREDIENTES
     query_str = """select t2.id, t2.name, count(t1.id) as num_ingredientes 
                 from ingredientes as t1
