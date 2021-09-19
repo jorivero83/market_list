@@ -22,7 +22,6 @@ setuptools.setup(
     install_requires=[
         "numpy>=1.14.3",
         "pandas>=0.23.0",
-        "xlrd>=1.2.0",
         "psycopg2>=2.8.4"
     ],
 )
