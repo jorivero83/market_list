@@ -68,15 +68,26 @@ if __name__ == '__main__':
     credentials = {
         'database': "lista_compra",
         'user': "postgres",
-        'password': 'pass',
+        'password': '15jrd305',
         'host': "localhost",
         'port': "5432"
     }
-
-    query_str = "SELECT id from recetas"
+    
+    # RECETAS CON INGREDIENTES
+    query_str = """select t2.id, t2.name, count(t1.id) as num_ingredientes 
+                from ingredientes as t1
+                inner join recetas as t2
+                on t1.receta_id = t2.id
+                GROUP by t2.id, t2.name
+                order by t2.id"""
     res = Query(**credentials).run(txt=query_str)
-    v_list = [a[0] for a in res['data']]
-    print([b for b in [2, 34] if b not in v_list])
+    df = pd.DataFrame(res['data'], columns=res['description'])
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+    # query_str = "SELECT id from recetas"
+    # res = Query(**credentials).run(txt=query_str)
+    # v_list = [a[0] for a in res['data']]
+    # print([b for b in [2, 34] if b not in v_list])
 
     # query_str = "SELECT max(id) from recetas"
     # res = Query(**credentials).run(txt=query_str)
