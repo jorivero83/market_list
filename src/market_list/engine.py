@@ -46,5 +46,7 @@ if __name__ == '__main__':
         'host': "localhost",
         'port': "5432"
     }
-    df = MarketList(**credentials).create(recipes=[1, 2, 3, 23])
+    df = MarketList(**credentials).create(recipes=[1, 16, 17, 11, 12])
+    df.to_csv("/home/jrd/Documents/market_list/output/list_week.csv", index=False)
     print(tabulate(df, headers='keys', tablefmt='psql', showindex="never"))
+
