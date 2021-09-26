@@ -5,11 +5,20 @@ class Query:
 
     def __init__(self, **params):
         self.credentials = params
-        self.connection = psycopg2.connect(**self.credentials)
+        self.connection = self.create_connection()
 
     def __del__(self):
-        if self.connection:
+        if self.connection is not None:
             self.connection.close()
+
+    def create_connection(self):
+        conn = None
+        try:
+            conn = psycopg2.connect(**self.credentials)
+        except Exception as e:
+            raise IOError(e)
+
+        return conn
 
     def run(self, txt: str):
         """
@@ -53,8 +62,7 @@ class Query:
             records = cursor.fetchall()
             cursor.close()
         except Exception as e:
-            print(e)
-            raise
+            raise IOError(e)
 
         return {'description': description, 'data': records}
 
