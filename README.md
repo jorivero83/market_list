@@ -18,6 +18,10 @@ We have already in our database the following recipes list:
 10. Tinga de pollo
 11. Salsa boloñesa
 12. Arroz cremoso de pollo y verduras
+13. Pollo con salsa cremosa de verduras
+14. Pollo con espinacas y tomate
+15. Sopa de garbanzos con espinacas
+16. Cocción de garbanzos
 
 Choosing recipes (1, 5, 6), if we want to go to the market now, we need the list of ingredients and how much of each one
 need to buy. Then, for this purpose you use our package as bellow, and you can know the ingredients and the quantities
